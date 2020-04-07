@@ -1,9 +1,9 @@
 /*	Author: achen163
  *  Partner(s) Name: none
- *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Lab Section:22
+ *	Assignment: Lab #2  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
- *
+ *	
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
@@ -14,10 +14,11 @@
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-
-    /* Insert your solution below */
+	DDRB = 0xFF; //Configure port B's 8 pins as outputs
+	PORTB = 0x00; // Initialize PORTB output to 0's   
+ /* Insert your solution below */
     while (1) {
-
+		PORTB = 0x0F;
     }
     return 1;
 }
