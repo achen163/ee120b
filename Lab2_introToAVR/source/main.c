@@ -22,12 +22,12 @@ int main(void) {
 	unsigned char tmpA = 0x00;
  /* Insert your solution below */
     while (1) {
-		tmpA = PINA & 0x01;
+		tmpA = PINA;
 		if (tmpA == 0x01) {
-			tmpB = (tmpB & 0xFC) | 0x01;
+			tmpB = 0x01;
 		}
 		else {
-			tmpB = (tmpB & 0xFC) | 0x02;
+			tmpB = 0x00;
 		}
 
 		PORTB = tmpB;
