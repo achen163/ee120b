@@ -33,6 +33,7 @@ int main(void) {
 		tmpA = PINA;
 		tmpB = PINB;
 		tmpC = PINC;	
+		tmpD = 0x00;
 		countweight = tmpA + tmpB + tmpC;
 		if (countweight > 0x8C) {
 			tmpD = 0x01;		
@@ -43,6 +44,6 @@ int main(void) {
 				tmpD = tmpD & 0xFD;
 			}
 		PORTD = countweight + tmpD; 
-    }
+	}   
     return 1;
 }
