@@ -16,21 +16,33 @@ int main(void) {
     /* Insert DDR and PORT initializations */
 	DDRA = 0x00;
 	PORTA = 0xFF;	
-	DDRB = 0xFF; //Configure port B's 8 pins as outputs
-	PORTB = 0x00; // Initialize PORTB output to 0's  
+	DDRB = 0x00; //Configure port B's 8 pins as outputs
+	PORTB = 0xFF; // Initialize PORTB output to 0's  
+	DDRC = 0x00;
+	PORTC = 0xFF;
+	DDRD = 0xFF;
+	PORTD = 0x00;
 	unsigned char tmpB = 0x00; 
 	unsigned char tmpA = 0x00;
+	unsigned char tmpC = 0x00;
+	unsigned char tmpD = 0x00;
+	unsigned char countweight = 0x00;
  /* Insert your solution below */
     while (1) {
+		countweight = 0x00;
 		tmpA = PINA;
-		if (tmpA == 0x01) {
-			tmpB = (tmpB & 0xFC) | 0x01;
-		}
-		else {
-			tmpB = (tmpB & 0xFC) | 0x00;
+		tmpB = PINB;
+		tmpC = PINC;	
+		countweight = tmpA + tmpB + tmpC;
+		if (countweight > 0x8C) {
+			tmpD = 0x01;		
+	
 		}
 
-		PORTB = tmpB;
+		if (tmpA -tmpC > 0x50) {
+				tmpD = tmpD & 0xFD;
+			}
+		PORTD = countweight + tmpD; 
     }
     return 1;
 }

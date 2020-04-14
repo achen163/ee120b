@@ -48,6 +48,29 @@ continue 5
 expectPORTD 0x04
 checkResult
 
+test "PINA: 0x55, PINB: 0x02, PINC: 0x03 => PORTD: 0x5A"
+setPINA 0x55
+setPINB 0x02
+setPINC 0x03
+continue 5
+expectPORTD 0x5A
+checkResult
+
+test "PINA: 0x20, PINB: 0x20, PINC: 0x20 => PORTD: 0x60"
+setPINA 0x20
+setPINB 0x20
+setPINC 0x20
+continue 5
+expectPORTD 0x60
+checkResult
+
+test "PINA: 0x04, PINB: 0x04, PINC: 0x04 => PORTD: 0x0C"
+setPINA 0x04
+setPINB 0x04
+setPINC 0x04
+continue 5
+expectPORTD 0x0C
+checkResult
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
