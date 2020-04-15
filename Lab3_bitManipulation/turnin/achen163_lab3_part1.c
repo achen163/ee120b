@@ -12,6 +12,10 @@
 #include "simAVRHeader.h"
 #endif
 
+unsigned char GetBit(unsigned char x, unsigned char k) {
+	return ((x &(0x01 << k)) !=0);
+}
+
 int main(void) {
     /* Insert DDR and PORT initializations */
 	DDRA = 0x00;
@@ -24,29 +28,22 @@ int main(void) {
 	unsigned char tmpA = 0x00;
 	unsigned char tmpB = 0x00;
 	unsigned char counter = 0x00;
-	unsigned int i = 0;    
+	unsigned int i = 0;  
 while (1) {
 	tmpA = PINA;
 	tmpB = PINB;
 	counter = 0x00;
-	for (i = 0 ; i < 8; i++) {
-		if ((tmpA & 0x01) == 0x01) {
+	for( i =0; i < 8; i++ ) {
+		tmpA = GetBit(PINA, i);
+		if(tmpA == 0x01) {
 			counter++;
 		}
-		else if(tmpA / 2 >= 1) {
+		tmpB = GetBit(PINB, i);
+		if (tmpB == 0x01) {
 			counter++;
 		}
-		tmpA = tmpA/2;
 	}
-	for (i =0; i < 8; i++) {
-		if((tmpB & 0x01) == 0x01) {
-			counter++;
-		}	
-		else if(tmpB / 2 >= 1) {
-			counter++;
-		}
-		tmpB = tmpB / 2;
-	}
+	
 	PORTC = counter;
     }
     return 1;

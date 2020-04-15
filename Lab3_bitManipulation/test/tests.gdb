@@ -39,7 +39,33 @@ expectPORTC 0
 checkResult
 
 # Add tests below
+test "PINA: 0x01, PINB: 0x01 => PORTC: 2"
+setPINA 0x01
+setPINB 0x01
+continue 2
+expectPORTC 0x02
+checkResult
 
+test "PINA: 0x03, PINB: 0x03 => PORTC: 4"
+setPINA 0x03
+setPINB 0x03
+continue 2
+expectPORTC 0x04
+checkResult
+
+test "PINA: 0x01, PINB: 0x02 => PORTC: 2"
+setPINA 0x01
+setPINB 0x02
+continue 2
+expectPORTC 0x02
+checkResult 
+
+test "PINA: 0xF0, PINB: 0x0F => PORTC: 8"
+setPINA 0xF0
+setPINB 0x0F
+continue 2
+expectPORTC 0x08
+checkResult
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed
 eval "shell echo Passed %d/%d tests.\n",$passed,$tests
