@@ -27,7 +27,8 @@ int main(void) {
 	unsigned char tmpC = 0x00;
 	unsigned char counter = 0x00; 
 while (1) {
-	tmpB = PINB;
+		
+	tmpB = 0x00;
 	counter = PIND;
 	if (counter >=70) {
 		tmpB = 0x02;
