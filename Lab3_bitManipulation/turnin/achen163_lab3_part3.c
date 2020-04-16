@@ -25,35 +25,38 @@ int main(void) {
     /* Insert your solution below */
 	unsigned char tmpA = 0x00;
 	unsigned char tmpC = 0x00;
-	unsigned char counter = 0x00;
-	unsigned int i = 0;  
+	unsigned char counter = 0x00; 
 while (1) {
-	tmpA = PINA;
+	tmpA = PINA & 0x0F;
 	tmpC = 0x00;
-if (tmpA > 0) {	
-	if ((tmpA <= 2)) {
-		tmpC = 0x20;
+	if (tmpA ==  0) {
+		tmpC = 0x00;
+	}	
+
+	else if ((tmpA >=13)) {
+		tmpC = 0x3F;
 	}
-	else if (tmpA <=4) {
-		tmpC = 0x30;
-	}
-	else if (tmpA <= 6) {
-		tmpC = 0x38;
-	}
-	else if (tmpA <= 9) {
-		tmpC = 0x3C;
-	}
-	else if (tmpA <= 12) {
+	else if (tmpA >=10) {
 		tmpC = 0x3E;
 	}
-	else if (tmpA <= 15) {
-		tmpC = 0x3F;
+	else if (tmpA >= 7) {
+		tmpC = 0x3C;
+	}
+	else if (tmpA >= 5) {
+		tmpC = 0x38;
+	}
+	else if (tmpA >= 3) {
+		tmpC = 0x30;
+	}
+	else if (tmpA >= 1) {
+		tmpC = 0x20;
 	} 
-}
+
 	
 	if (tmpA <=4) {
 		tmpC = tmpC + 0x40;
 	}
+	tmpA = PINA & 0xF0;
 	if ((tmpA & 0x30) == 0x30){
 		tmpC = tmpC + 0x80;
 	}
