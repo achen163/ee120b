@@ -24,16 +24,16 @@ int main(void) {
 	PORTD = 0xFF;
     /* Insert your solution below */
 	unsigned char tmpB = 0x00;
-	unsigned char tmpC = 0x00;
+	unsigned char tmpD = 0x00;
 	unsigned char counter = 0x00; 
 while (1) {
 		
 	tmpB = 0x00;
-	counter = PIND << 1;
-	if (counter >=70) {
+	counter = PIND;
+	if (counter >= 35 ) {
 		tmpB = 0x02;
 	}
-	else if (counter > 5 ) {
+	else if (counter > 3 ) {
 		tmpB = 0x04;
 	} 
 	else {
