@@ -44,10 +44,10 @@ if (tmpA > 0) {
 		tmpC = 0x3C;
 	}
 	else if (tmpA <= 12) {
-		tmpC = 0x32;
+		tmpC = 0x3E;
 	}
 	else if (tmpA <= 15) {
-		tmpC = 0x31;
+		tmpC = 0x3F;
 	} 
 }
 	
