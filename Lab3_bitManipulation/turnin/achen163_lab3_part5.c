@@ -33,7 +33,7 @@ while (1) {
 	if (counter >=70) {
 		tmpB = 0x02;
 	}
-	else if (counter > 5 && counter < 70) {
+	else if (counter > 5) {
 		tmpB = 0x04;
 	} 
 	else {
