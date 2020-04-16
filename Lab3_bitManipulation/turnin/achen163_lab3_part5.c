@@ -18,8 +18,8 @@ unsigned char GetBit(unsigned char x, unsigned char k) {
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-	DDRB = 0xFE;
-	PORTB = 0x01;
+	DDRB = 0xFF;
+	PORTB = 0x00;
 	DDRD = 0x00;
 	PORTD = 0xFF;
     /* Insert your solution below */
