@@ -39,6 +39,7 @@ void Tick() {
 			break;
 		case LightOnePress:
 			state = tempA ? LightOnePress : LightOneRelease;
+			break;
 		default:
 			state = Start;
 			break;
@@ -78,7 +79,7 @@ int main(void) {
 	light = 0x00;
     /* Insert your solution below */
     while (1) {
-
+	
 	Tick();	
 	//PORTB = light;
     }
