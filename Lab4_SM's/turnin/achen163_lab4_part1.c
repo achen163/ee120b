@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start,LightOne, LightOneWait, LightTwo, LightTwoWait} state;
+enum States {Start, LightOneRelease, LightTwoPress, LightTwoRelease, LightOnePress} state;
 
 unsigned char tempA = 0x00;
 unsigned char light = 0x00;	
@@ -21,25 +21,24 @@ void Tick() {
 	tempA = PINA;
 	switch(state) {
 		case Start:
-			state = LightOne;
+			state = LightOneRelease;
 			break;
-		case LightOne:
+		case LightOneRelease:
 			if (tempA) {
-				state = LightOneWait;
+				state = LightTwoPress;
 			}
 			else {
-				state = LightOne;
+				state = LightOneRelease;
 			}
 			break;
-		case LightOneWait:
-			state = tempA ? LightTwo : LightOneWait;
+		case LightTwoPress:
+			state = tempA ? LightTwoPress : LightTwoRelease;
 			break;
-		case LightTwo:
-			state = tempA ? LightTwo : LightTwoWait;
+		case LightTwoRelease:
+			state = tempA ? LightOnePress : LightTwoRelease;
 			break;
-		case LightTwoWait:
-			state = tempA ? LightOne : LightTwoWait;
-			break;
+		case LightOnePress:
+			state = tempA ? LightOnePress : LightOneRelease;
 		default:
 			state = Start;
 			break;
@@ -48,21 +47,22 @@ void Tick() {
 	switch(state) {
 		case Start:
 			break;
-		case LightOne:
+		case LightOneRelease:
 			light = 0x01;
 			break;
-		case LightOneWait:
-			light = 0x00;
-			break;
-		case LightTwo:
+		case LightTwoPress:
 			light = 0x02;
 			break;
-		case LightTwoWait:
-			light = 0x00;
+		case LightTwoRelease:
+			light = 0x02;
+			break;
+		case LightOnePress:
+			light = 0x01;
 			break;
 		default:
 			break;
 	}
+
 PORTB = light;
 }
 
@@ -74,11 +74,13 @@ int main(void) {
 	PORTA = 0xFF;
 	DDRB = 0xFF;
 	PORTB = 0x00;
+	state = Start;
+	light = 0x00;
     /* Insert your solution below */
     while (1) {
-	light  = 0x00;	
-	state = Start;
+
 	Tick();	
+	//PORTB = light;
     }
     return 1;
 }
