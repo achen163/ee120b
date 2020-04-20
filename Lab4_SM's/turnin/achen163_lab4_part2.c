@@ -64,7 +64,7 @@ void Tick() {
 	                if ((tempA & 0x03) == 0x03) {
                                 state = BothPressed;
                         }
-                        else if ((tempA & 0x01) == 0x01) {
+                        else if ((tempA & 0x01)  == 0x01) {
                                 state = PA0Pressed;
                         }
                         else if ((tempA & 0x02) == 0x02) {
@@ -96,25 +96,31 @@ void Tick() {
 
 	switch(state) {
 		case Start:
+			PORTC = 0x07;
 			break;
 		case NonePressed:	
 			break;
 		case PA0Pressed:
-			tempC = tempC + 0x01;
+			tempC = PORTC;
+			if (PORTC < 9 ) {
+				PORTC = tempC + 1;
+			}
 			break;
 		case Wait:
 			break;
 		case PA1Pressed:
-			tempC  = tempC - 0x01;
+			if (PORTC > 0) {
+				PORTC  = PORTC - 0x01;
+			}
 			break;
 		case BothPressed:
-			tempC = 0x00;
+			PORTC = 0x00;
 			break; 
 		default:
 			break;
 	}
 
-PORTC = tempC;
+
 }
 
 
@@ -124,9 +130,8 @@ int main(void) {
 	DDRA = 0x00;
 	PORTA = 0xFF;
 	DDRC = 0xFF;
-	PORTC = 0x00;
+	PORTC = 0x07;
 	state = Start;
-
     /* Insert your solution below */
     while (1) {
 	tempA = PINA;		
