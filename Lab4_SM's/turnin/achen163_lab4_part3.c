@@ -34,6 +34,9 @@ void Tick() {
 	                if (tempA  == 0x00) {
                                 state = PReleased;
                         }
+			else if (tempA == 0x04) {
+				state = PPressed;
+			}
 			else {
 				state = Locked;
 			}
@@ -42,6 +45,9 @@ void Tick() {
 	                if (tempA == 0x02) {
                                 state = Unlocked;
                         }
+			else if (tempA == 0x00) {
+				state = PReleased;
+			}
 			else {
 				state = Locked;
 			} 
