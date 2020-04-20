@@ -1,0 +1,143 @@
+/*	Author: achen163
+ *  Partner(s) Name: 
+ *	Lab Section:
+ *	Assignment: Lab #  Exercise #
+ *	Exercise Description: [optional - include for your own benefit]
+ *
+ *	I acknowledge all content contained herein, excluding template or example
+ *	code, is my own original work.
+ */
+#include <avr/io.h>
+#ifdef _SIMULATE_
+#include "simAVRHeader.h"
+#endif
+
+enum States {Start, NonePressed, PA0Pressed, Release, PA1Pressed, BothPressed} state;
+
+unsigned char tempA = 0x00;
+unsigned char tempC = 0x07;	
+
+void Tick() {
+	tempA = PINA;
+	switch(state) {
+		case Start:
+			state = NonePressed;
+			break;
+		case NonePressed:
+			if ((tempA & 0x03) == 0x03) {
+				state = BothPressed;
+			}
+			else if ((tempA & 0x01) == 0x01) {
+				state = PA0Pressed;
+			}
+			else if ((tempA & 0x02) == 0x02) {
+				state = PA1Pressed;
+			}   
+			else {
+				state = NonePressed;
+			}
+			break;
+		case PA0Pressed:
+	                if ((tempA & 0x03) == 0x03) {
+                                state = BothPressed;
+                        }
+                        else if ((tempA & 0x01) == 0x01) {
+                                state = PA0Pressed;
+                        }
+                        else if ((tempA & 0x02) == 0x02) {
+                                state = PA1Pressed;
+                        }
+			else {
+				state = Release;
+			}
+			break;
+		case Release:
+	                if ((tempA & 0x03) == 0x03) {
+                                state = BothPressed;
+                        }
+                        else if ((tempA & 0x01) == 0x01) {
+                                state = PA0Pressed;
+                        }
+                        else if ((tempA & 0x02) == 0x02) {
+                                state = PA1Pressed;
+                        }
+			else {
+				state =Release;
+			}
+			break;
+		case PA1Pressed:
+	                if ((tempA & 0x03) == 0x03) {
+                                state = BothPressed;
+                        }
+                        else if ((tempA & 0x01) == 0x01) {
+                                state = PA0Pressed;
+                        }
+                        else if ((tempA & 0x02) == 0x02) {
+                                state = PA1Pressed;
+                        }
+			else {
+				state = Release;
+			}
+			break;
+	
+		case BothPressed:
+	                if ((tempA & 0x03) == 0x03) {
+                                state = BothPressed;
+                        }
+                        else if ((tempA & 0x01) == 0x01) {
+                                state = PA0Pressed;
+                        }
+                        else if ((tempA & 0x02) == 0x02) {
+                                state = PA1Pressed;
+                        }
+			else {
+				state = Release;
+			}
+			break;
+		default:
+			state = Start;
+			break;
+	}
+
+	switch(state) {
+		case Start:
+			break;
+		case NonePressed:	
+			break;
+		case PA0Pressed:
+			tempC = tempC + 0x01;
+			break;
+		case Release:
+			break;
+		case PA1Pressed:
+			tempC  = tempC - 0x01;
+			break;
+		case BothPressed:
+			tempC = 0x00;
+			break; 
+		default:
+			break;
+	}
+
+PORTC = tempC;
+}
+
+
+
+int main(void) {
+    /* Insert DDR and PORT initializations */
+	DDRA = 0x00;
+	PORTA = 0xFF;
+	DDRC = 0xFF;
+	PORTC = 0x00;
+	state = Start;
+	tempC = 0x00;
+
+    /* Insert your solution below */
+    while (1) {
+	
+	Tick();	
+	//PORTB = light;
+    }
+    return 1;
+}
