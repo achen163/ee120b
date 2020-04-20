@@ -23,7 +23,7 @@ void Tick() {
 			state = Locked;		
 			break;
 		case Locked:
-			if (tempA == 0x02) {
+			if (tempA == 0x04) {
 				state = PPressed;
 			}
 			else {
@@ -39,7 +39,7 @@ void Tick() {
 			}
 			break;
 		case PReleased:
-	                if (tempA == 0x01) {
+	                if (tempA == 0x02) {
                                 state = YPressed;
                         }
 			else {
