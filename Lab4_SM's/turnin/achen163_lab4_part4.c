@@ -70,6 +70,9 @@ void Tick() {
 			if (tempA == 0x00) {
 				state = PReleased2;
 			}
+			else if (tempA == 0x04) {
+				state = PPressed2;
+			}
 			else {
 				state = Unlocked;
 			}
@@ -78,6 +81,9 @@ void Tick() {
 			if (tempA == 0x02) {
 				state = Locked;
 			}
+			else if (tempA == 0x00) {
+				state = PReleased2;
+			}		
 			else {
 				state = Unlocked;
 			}
