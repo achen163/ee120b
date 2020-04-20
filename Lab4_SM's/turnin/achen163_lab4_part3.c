@@ -53,7 +53,13 @@ void Tick() {
 			} 
 			break;
                 case Unlocked:
-                        break;
+                        if (tempA == 0x02) {
+				state = Unlocked;	
+			}
+			else if (tempA == 0x80) {
+				state = Locked;
+			}
+			break;
 		
 		default:
 			state = Start;
