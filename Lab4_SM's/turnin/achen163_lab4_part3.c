@@ -53,11 +53,11 @@ void Tick() {
 			} 
 			break;
                 case Unlocked:
-                        if (tempA == 0x02) {
-				state = Unlocked;	
-			}
-			else if (tempA == 0x80) {
+                        if (tempA == 0x80) {
 				state = Locked;
+			} 
+			else if (tempA == 0x02) {
+				state = Unlocked;
 			}
 			break;
 		
