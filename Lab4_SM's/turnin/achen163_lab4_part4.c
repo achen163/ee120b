@@ -63,7 +63,7 @@ void Tick() {
 				state = PPressed2;
 			}
 			else {
-				state = Locked;
+				state = Unlocked;
 			}
 			break;
 		case PPressed2: 
