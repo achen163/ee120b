@@ -55,7 +55,9 @@ void Tick() {
 	                if ((tempA & 0x03) == 0x03) {
                                 state = BothPressed;
                         }
-                     	else if(tempA == 0x01){state = Wait1;} 
+                     	else if((tempA & 0x01)  == 0x01){
+				state = Wait1;
+			} 
 			else if ((tempA & 0x00) == 0x00){
 				state = NonePressed;
 			}
@@ -64,7 +66,7 @@ void Tick() {
                         if ((tempA & 0x03) == 0x03) {
                                 state = BothPressed;
                         }
-			if (tempA == 0x02) {
+			if ((tempA & 0x02) == 0x02) {
 				state = Wait2;
 			}
                         else if ((tempA & 0x00) == 0x00){
@@ -118,11 +120,9 @@ void Tick() {
 			}
 			break;
 		case Wait1:
-			PORTC = PORTC;
 			break;
 
                 case Wait2:
-                        PORTC = PORTC;
                         break;
 
 		case PA1Pressed:
