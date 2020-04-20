@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, Locked, PPressed, PReleased, YPressed, Unlocked} state;
+enum States {Start, Locked, PPressed, PReleased, Unlocked} state;
 
 unsigned char tempA = 0x00;
 //unsigned char tempC = 0x07;	
@@ -40,14 +40,13 @@ void Tick() {
 			break;
 		case PReleased:
 	                if (tempA == 0x02) {
-                                state = YPressed;
+                                state = Unlocked;
                         }
 			else {
 				state = Locked;
 			} 
 			break;
-                case YPressed:
-                        state = Unlocked;
+                case Unlocked:
                         break;
 		
 		default:
@@ -65,8 +64,6 @@ void Tick() {
 			break;
 		case PReleased:
 			break;
-                case YPressed:
-                        break;
 		case Unlocked:
 			PORTB = 0x01;
 			break;
