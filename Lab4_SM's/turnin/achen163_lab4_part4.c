@@ -59,6 +59,9 @@ void Tick() {
 			else if (tempA == 0x02) {
 				state = Unlocked;
 			}
+			else {
+				state = Locked;
+			}
 			break;
 		
 		default:
