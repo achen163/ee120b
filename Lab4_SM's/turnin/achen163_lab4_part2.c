@@ -12,7 +12,7 @@
 #include "simAVRHeader.h"
 #endif
 
-enum States {Start, NonePressed, PA0Pressed, Wait, PA1Pressed, BothPressed} state;
+enum States {Start, NonePressed, PA0Pressed, Wait1, Wait2, PA1Pressed, BothPressed} state;
 
 unsigned char tempA = 0x00;
 unsigned char tempC = 0x07;	
@@ -42,7 +42,7 @@ void Tick() {
                                 state = BothPressed;
                         }
                         else if ((tempA & 0x01) == 0x01) {
-                                state = Wait;
+                                state = Wait1;
                         }
                         else if ((tempA & 0x02) == 0x02) {
                                 state = PA1Pressed;
@@ -51,15 +51,26 @@ void Tick() {
 				state = NonePressed;
 			}
 			break;
-		case Wait:
+		case Wait1:
 	                if ((tempA & 0x03) == 0x03) {
                                 state = BothPressed;
                         }
-                      
+                     	else if(tempA == 0x01){state = Wait1;} 
 			else if ((tempA & 0x00) == 0x00){
 				state = NonePressed;
 			}
 			break;
+                case Wait2:
+                        if ((tempA & 0x03) == 0x03) {
+                                state = BothPressed;
+                        }
+			if (tempA == 0x02) {
+				state = Wait2;
+			}
+                        else if ((tempA & 0x00) == 0x00){
+                                state = NonePressed;
+                        }
+                        break;
 		case PA1Pressed:
 	                if ((tempA & 0x03) == 0x03) {
                                 state = BothPressed;
@@ -68,7 +79,7 @@ void Tick() {
                                 state = PA0Pressed;
                         }
                         else if ((tempA & 0x02) == 0x02) {
-                                state = Wait;
+                                state = Wait2;
                         }
 			else {
 				state = NonePressed;
@@ -77,7 +88,7 @@ void Tick() {
 
 		case BothPressed:
 	                if ((tempA & 0x03) == 0x03) {
-                                state = Wait;
+                                //state = Wait;
                         }
                         else if ((tempA & 0x01) == 0x01) {
                                 state = PA0Pressed;
@@ -106,11 +117,17 @@ void Tick() {
 				PORTC = tempC + 1;
 			}
 			break;
-		case Wait:
+		case Wait1:
+			PORTC = PORTC;
 			break;
+
+                case Wait2:
+                        PORTC = PORTC;
+                        break;
+
 		case PA1Pressed:
 			if (PORTC > 0) {
-				PORTC  = PORTC - 0x01;
+				PORTC  = PORTC -1;
 			}
 			break;
 		case BothPressed:
